@@ -7,6 +7,6 @@
 	<icon gap:platform="blackberry" src="icon.png" /><!-- Specifying the platform gives this icon element greater precedence than one without. -->
 	<gap:splash gap:platform="blackberry" src="screen.png" />
 	
-	<access origin="http://127.0.0.1" />
-	<access origin="http://192.168.1.10:8080" subdomains="true"/>
+	<access origin="http://127.0.0.1*" />
+	<access uri="http://192.168.1.10:8080" subdomains="true"/>
 </widget>
