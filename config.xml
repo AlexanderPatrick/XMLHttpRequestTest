@@ -9,6 +9,6 @@
 	
 	<!--<feature name="http://api.phonegap.com/1.0/device" /><!-- Needed for the Device Ready event? -->
 	<feature id="blackberry.app" required="true" version="1.0.0.0" /><!-- Needed for the Device Ready event? -->
-	<feature id="blackberry.app.event" required="true" version="1.0.0.0" /><!-- Needed for the Device Ready event? -->
-	<feature id="blackberry.system.event" required="true" version="1.0.0.0" /><!-- Needed for the Device Ready event? -->
+	<feature id="blackberry.app.event" required="true" version="1.0.0.0" /><!-- May need signing. Needed for the Device Ready event? -->
+	<feature id="blackberry.system.event" required="true" version="1.0.0.0" /><!-- May need signing. Needed for the Device Ready event? -->
 </widget>
