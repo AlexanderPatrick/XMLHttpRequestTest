@@ -17,9 +17,10 @@
 		<p id="response"></p>
 		<script>
 			var xhr;
-			
-			document.addEventListener('deviceready',document_deviceready,false);
-			function document_deviceready() {
+			window.addEventListener('load',init,false);
+			//document.addEventListener('deviceready',init,false);
+			function init() {
+				alert('We ready.');
 				xhr = new XMLHttpRequest();
 				var response = document.getElementById('response');
 				
