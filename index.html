@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body { margin:0px; padding:0px; }
+			input, textarea { width: 100%; }
+			input[type="button"] { width:50%; }
+		</style>
+	</head>
+	<body>
+		<input id="timeout" type="number" placeholder="Timeout"/><br/>
+		<input id="method" type="string" placeholder="Method"/><br/>
+		<input id="host" type="string" placeholder="Host"/><br/>
+		<input id="resource" type="string" placeholder="Resource"/><br/>
+		<input id="data" type="string" placeholder="Data"/><br/>
+		<input id="send" type="button" value="Send"/><input id="abort" type="button" value="Abort"/><br/>
+		<textarea id="response"></textarea>
+		<script>
+			var xhr;
+			
+			document.addEventListener('deviceready',document_deviceready,false);
+			function document_deviceready() {
+				xhr = new XMLHttpRequest();
+				var textarea = document.getElementById('response');
+				
+				xhr.onreadystatechange = function () {
+					textarea.innerHTML += 'Ready State: ' + xhr.readyState + '\n';
+					if (xhr.readyState > 1) {
+						textarea.innerHTML += 'Status: ' + xhr.status + ' ' + xhr.statusText + '\n';
+						textarea.innerHTML += 'Headers: ' + xhr.getAllResponseHeaders() + '\n';
+					}
+					if (xhr.readyState == 4) {
+						textarea.innerHTML += 'Response Type: ' + xhr.responseType + '\n';
+						textarea.innerHTML += 'Response: ' + xhr.responseText + '\n';
+					}
+					textArea.innerHTML += '\n';
+				};
+				
+				xhr.onabort = function () {
+					textArea.innerHTML += 'Abort occurred.\n';
+					getUserConfirmation('Request Aborted By User.','Abort');
+				}
+				
+				xhr.onerror = function () {
+					textArea.innerHTML += 'Error occurred.\n';
+					getUserConfirmation('An error occurred.','Error');
+				}
+				
+				xhr.ontimeout = function () {
+					textArea.innerHTML += 'Timeout occurred.\n';
+					getUserConfirmation('Request Timed Out.','Time Out');
+				}
+				
+				document.getElementById('send').addEventListener('click',sendRequest,false);
+				document.getElementById('abort').addEventListener('click',function() { xhr.abort(); },false);
+			}
+			
+			function sendRequest() {
+				var timeout = parseInt(document.getElementById('timeout').value);
+				var method = document.getElementById('method').value.toUpperCase();
+				var host = document.getElementById('host').value;
+				var resource = document.getElementById('resource').value;
+				var data = document.getElementById('data').value;
+				
+				var url = host + resource;
+				if (method == 'GET') {
+					url += '?' + data;
+				}
+				
+				xhr.timeout = timeout;
+				
+				xhr.open(method,url,true);
+				if (method == 'POST') {
+					xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+					xhr.send(data);
+				} else {
+					xhr.send();
+				}
+			}
+			
+			function getUserConfirmation(message,title) {
+				navigator.notification.confirm(message,function(button){if (button == 2) sendRequest();},title,'Okay,Retry');
+			}
+		</script>
+	</body>
+</html>
