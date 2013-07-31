@@ -4,7 +4,7 @@
 		<style>
 			body { margin:0px; padding:0px; }
 			input, textarea { width: 100%; }
-			input[type="button"] { width:33%; }
+			input[type="button"] { width:32%; }
 		</style>
 	</head>
 	<body>
@@ -20,9 +20,9 @@
 			//window.addEventListener('load',init,false);
 			document.addEventListener('deviceready',init,false);
 			function init() {
-				alert('We ready.');
 				xhr = new XMLHttpRequest();
 				var logDiv = document.getElementById('log');
+				logDiv.innerHTML += 'App Loaded';
 				
 				xhr.onreadystatechange = function () {
 					var logString = '';
@@ -67,7 +67,7 @@
 				var data = document.getElementById('data').value;
 				
 				var url = host + resource;
-				if (method == 'GET') {
+				if (method == 'GET' && data != '') {
 					url += '?' + data;
 				}
 				
