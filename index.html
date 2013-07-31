@@ -14,7 +14,7 @@
 		<input id="host" type="string" placeholder="Host"/><br/>
 		<input id="resource" type="string" placeholder="Resource"/><br/>
 		<input id="data" type="string" placeholder="Data"/><br/>
-		<input id="useXHR" type="checkbox" placeholder="Use XHR" checked="checked"/>Use XMLHttpRequest instead of $.ajax<br/>
+		<input id="useXHR" type="checkbox" placeholder="Use XHR" checked="checked"/>Use XHR not $.ajax<br/>
 		<input id="send" type="button" value="Send"/><input id="abort" type="button" value="Abort"/><input id="clear" type="button" value="Clear"/><br/>
 		<div id="log"></div>
 		<script type="text/javascript" src="phonegap.js"></script><!-- Required for deviceready to work. -->
@@ -50,17 +50,17 @@
 				};
 				
 				xhr.onabort = function () {
-					document.getElementById('log').innerHTML += 'Abort occurred.<br/>';
+					document.getElementById('log').innerHTML += 'Abort occurred.<br/><hr/>';
 					getUserConfirmation('Request Aborted By User.','Abort');
 				}
 				
 				xhr.onerror = function () {
-					document.getElementById('log').innerHTML += 'Error occurred.<br/>';
+					document.getElementById('log').innerHTML += 'Error occurred.<br/><hr/>';
 					getUserConfirmation('An error occurred.','Error');
 				}
 				
 				xhr.ontimeout = function () {
-					document.getElementById('log').innerHTML += 'Timeout occurred.<br/>';
+					document.getElementById('log').innerHTML += 'Timeout occurred.<br/><hr/>';
 					getUserConfirmation('Request Timed Out.','Time Out');
 				}
 				
@@ -106,11 +106,11 @@
 			}
 			
 			function success(data,textStatus,jqxhrobject){ 
-				document.getElementById('log').innerHTML += 'Text Status: ' + textStatus + '<br/>Data: ' + data + '<br/>'; 
+				document.getElementById('log').innerHTML += 'Text Status: ' + textStatus + '<br/>Data: ' + data + '<br/><hr/>'; 
 			}
 			
 			function failure(jqxhrobject,textStatus,errorThrown){ 
-				document.getElementById('log').innerHTML += 'Text Status: ' + textStatus + '<br/>Error Thrown: ' + errorThrown + '<br/>'; 
+				document.getElementById('log').innerHTML += 'Text Status: ' + textStatus + '<br/>Error Thrown: ' + errorThrown + '<br/><hr/>'; 
 			}
 		</script>
 	</body>
