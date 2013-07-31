@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns = "http://www.w3.org/ns/widgets" xmlns:gap = "http://phonegap.com/ns/1.0" id = "net.site40.alexanderpatrick.xmlhttprequesttest" version = "1.0.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="net.site40.alexanderpatrick.xmlhttprequesttest" version="1.0.0">
     <name>XMLHttpRequest Test</name>
     <description>An application that tests the functionality of the XMLHttpRequest Object</description>
     <author href="http://alexanderpatrick.site40.net" email="ajgp1989@gmail.com">Alexander Patrick</author>
 	<content src="index.html" />
+	<access origin="http://192.168.1.10:8080" />
 </widget>

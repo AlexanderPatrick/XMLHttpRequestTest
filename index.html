@@ -17,8 +17,8 @@
 		<p id="response"></p>
 		<script>
 			var xhr;
-			window.addEventListener('load',init,false);
-			//document.addEventListener('deviceready',init,false);
+			//window.addEventListener('load',init,false);
+			document.addEventListener('deviceready',init,false);
 			function init() {
 				alert('We ready.');
 				xhr = new XMLHttpRequest();
@@ -32,7 +32,7 @@
 					}
 					if (xhr.readyState == 4) {
 						response.innerHTML += 'Response Type: ' + xhr.responseType + '<br/>';
-						response.innerHTML += 'Response: ' + xhr.responseText + '<br/>';
+						response.innerHTML += 'Response: "' + xhr.responseText + '"<br/>';
 					}
 					response.innerHTML += '<br/>';
 				};
