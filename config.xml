@@ -5,5 +5,6 @@
     <author href="http://alexanderpatrick.site40.net" email="ajgp1989@gmail.com">Alexander Patrick</author>
 	<content src="index.html" />
 	<access origin="http://192.168.1.10:8080" />
-	<feature name="http://api.phonegap.com/1.0/device" /><!-- Needed for the Device Ready event? -->
+	<!--<feature name="http://api.phonegap.com/1.0/device" /><!-- Needed for the Device Ready event? -->
+	<feature id="blackberry.app" required="true" version="1.0.0.0" /><!-- Needed for the Device Ready event? -->
 </widget>
