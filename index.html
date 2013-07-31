@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 		<style>
 			body { margin:0px; padding:0px; }
 			input, textarea { width: 100%; }
@@ -15,28 +16,35 @@
 		<input id="data" type="string" placeholder="Data"/><br/>
 		<input id="send" type="button" value="Send"/><input id="abort" type="button" value="Abort"/><input id="clear" type="button" value="Clear"/><br/>
 		<div id="log"></div>
-		<script type="text/javascript" src="phonegap.js"></script>
+		<script type="text/javascript" src="phonegap.js"></script><!-- Required for deviceready to work. -->
 		<script>
 			var xhr;
-			//window.addEventListener('load',init,false);
+			
 			document.addEventListener('deviceready',init,false);
 			function init() {
 				xhr = new XMLHttpRequest();
+				xhr.withCredentials = true;
+				
 				var logDiv = document.getElementById('log');
-				logDiv.innerHTML += 'App Loaded';
+				logDiv.innerHTML += 'App Loaded.<br/><hr/><br/>';
 				
 				xhr.onreadystatechange = function () {
 					var logString = '';
-					logString += 'Ready State: ' + xhr.readyState + '<br/>';
-					if (xhr.readyState > 1) {
+					switch (xhr.readyState) {
+						case 0: logString += 'Ready State: 0 Unsent<br/>'; break;
+						case 1: logString += 'Ready State: 1 Opened<br/>'; break;
+						case 2: logString += 'Ready State: 2 Headers Received<br/>'; break;
+						case 3: logString += 'Ready State: 3 Loading<br/>'; break;
+						case 4: logString += 'Ready State: 4 Done<br/>'; break;
+					}
+					if (xhr.readyState == 2) {
 						logString += 'Status: ' + xhr.status + ' ' + xhr.statusText + '<br/>';
 						logString += 'Headers: ' + xhr.getAllResponseHeaders() + '<br/>';
 					}
 					if (xhr.readyState == 4) {
 						logString += 'Response Type: ' + xhr.responseType + '<br/>';
-						logString += 'Response: "' + xhr.responseText + '"<br/>';
+						logString += 'Response: "' + xhr.responseText + '"<br/><hr/><br/>';
 					}
-					logString += '<br/>';
 					logDiv.innerHTML += logString;
 				};
 				
