@@ -14,9 +14,11 @@
 		<input id="host" type="string" placeholder="Host"/><br/>
 		<input id="resource" type="string" placeholder="Resource"/><br/>
 		<input id="data" type="string" placeholder="Data"/><br/>
+		<input id="useXHR" type="checkbox" placeholder="Use XHR" checked="checked"/>Use XMLHttpRequest instead of $.ajax<br/>
 		<input id="send" type="button" value="Send"/><input id="abort" type="button" value="Abort"/><input id="clear" type="button" value="Clear"/><br/>
 		<div id="log"></div>
 		<script type="text/javascript" src="phonegap.js"></script><!-- Required for deviceready to work. -->
+		<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.js"></script>
 		<script>
 			var xhr;
 			
@@ -25,7 +27,7 @@
 				xhr = new XMLHttpRequest();
 				
 				var logDiv = document.getElementById('log');
-				logDiv.innerHTML += 'App Loaded.<br/><hr/><br/>';
+				logDiv.innerHTML += 'App Loaded.<br/><hr/>';
 				
 				xhr.onreadystatechange = function () {
 					var logString = '';
@@ -42,7 +44,7 @@
 					}
 					if (xhr.readyState == 4) {
 						logString += 'Response Type: ' + xhr.responseType + '<br/>';
-						logString += 'Response: "' + xhr.responseText + '"<br/><hr/><br/>';
+						logString += 'Response: "' + xhr.responseText + '"<br/><hr/>';
 					}
 					logDiv.innerHTML += logString;
 				};
@@ -73,25 +75,42 @@
 				var host = document.getElementById('host').value;
 				var resource = document.getElementById('resource').value;
 				var data = document.getElementById('data').value;
+				var useXHR = document.getElementById('useXHR').checked;
 				
 				var url = host + resource;
 				if (method == 'GET' && data != '') {
 					url += '?' + data;
 				}
 				
-				xhr.timeout = timeout;
-				
-				xhr.open(method,url,true);
-				if (method == 'POST') {
-					xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-					xhr.send(data);
+				if (useXHR) {
+					xhr.timeout = timeout;
+					
+					xhr.open(method,url,true);
+					if (method == 'POST') {
+						xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+						xhr.send(data);
+					} else {
+						xhr.send();
+					}
 				} else {
-					xhr.send();
+					if (method == 'POST') {
+						$.ajax({data: data, timeout: timeout, type: 'POST', url: url}).done(success).fail(failure);
+					} else {
+						$.ajax({timeout: timeout, type: method, url: url}).done(success).fail(failure);
+					}
 				}
 			}
 			
 			function getUserConfirmation(message,title) {
 				navigator.notification.confirm(message,function(button){if (button == 2) sendRequest();},title,'Okay,Retry');
+			}
+			
+			function success(data,textStatus,jqxhrobject){ 
+				document.getElementById('log').innerHTML += 'Text Status: ' + textStatus + '<br/>Data: ' + data + '<br/>'; 
+			}
+			
+			function failure(jqxhrobject,textStatus,errorThrown){ 
+				document.getElementById('log').innerHTML += 'Text Status: ' + textStatus + '<br/>Error Thrown: ' + errorThrown + '<br/>'; 
 			}
 		</script>
 	</body>
