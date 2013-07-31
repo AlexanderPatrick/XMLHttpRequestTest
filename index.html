@@ -17,6 +17,7 @@
 		<input id="async" type="checkbox" checked="checked"/>asynchronous request<br/>
 		<input id="useXHR" type="checkbox" checked="checked"/>Use XHR not $.ajax<br/>
 		<input id="send" type="button" value="Send"/><input id="abort" type="button" value="Abort"/><input id="clear" type="button" value="Clear"/><br/>
+		<form method="GET" action="http://192.168.1.10:8080/test/test.php"><input type="submit" value="Submit"/></form>
 		<div id="log"></div>
 		<script type="text/javascript" src="phonegap.js"></script><!-- Required for deviceready to work. -->
 		<script type="text/javascript" src="jquery-2.0.3.js"></script>
@@ -59,11 +60,9 @@
 								case 3: logString += 'Ready State: 3 Loading<br/>'; break;
 								case 4: logString += 'Ready State: 4 Done<br/>'; break;
 							}
-							if (xhr.readyState == 2) {
+							if (xhr.readyState == 4) {
 								logString += 'Status: ' + xhr.status + ' ' + xhr.statusText + '<br/>';
 								logString += 'Headers: ' + xhr.getAllResponseHeaders() + '<br/>';
-							}
-							if (xhr.readyState == 4) {
 								logString += 'Response Type: ' + xhr.responseType + '<br/>';
 								logString += 'Response: "' + xhr.responseText + '"<br/><hr/>';
 							}
@@ -95,10 +94,10 @@
 							xhr.send();
 						}
 					} else {
-						//xhr.onreadystatechange = null;
-						//xhr.onabort = null;
-						//xhr.onerror = null;
-						//xhr.ontimeout = null;
+						xhr.onreadystatechange = null;
+						xhr.onabort = null;
+						xhr.onerror = null;
+						xhr.ontimeout = null;
 						
 						xhr.open(method,url,false);
 						if (method == 'POST') {
