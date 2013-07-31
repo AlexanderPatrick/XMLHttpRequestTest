@@ -6,5 +6,5 @@
 	<content src="index.html" />
 	<access origin="http://192.168.1.10:8080" />
 	<!--<feature name="http://api.phonegap.com/1.0/device" /><!-- Needed for the Device Ready event? -->
-	<feature id="blackberry.app" required="true" version="1.0.0.0" /><!-- Requires the app to be signed? Needed for the Device Ready event? -->
+	<feature id="blackberry.app" required="true" version="1.0.0.0" /><!-- Needed for the Device Ready event? -->
 </widget>
